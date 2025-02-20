@@ -10,22 +10,24 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl font-bold mb-8 text-center">My British & Viking Heritage</h1>
+        <h1 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+          My British & Viking Heritage
+        </h1>
 
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 gap-6 items-center">
+        <Card className="mb-12 shadow-xl overflow-hidden">
+          <CardContent className="p-8">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="relative w-full">
                 <AspectRatio ratio={1}>
                   <img
-                    src="attached_assets/Pepeha Portrait.png"
+                    src="./attached_assets/Pepeha Portrait.png"
                     alt="Portrait of Nathan Haliday"
-                    className="object-cover rounded-md"
+                    className="object-cover rounded-lg shadow-lg"
                   />
                 </AspectRatio>
               </div>
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-primary">About Me</h2>
+              <div className="space-y-6">
+                <h2 className="text-3xl font-semibold text-primary">About Me</h2>
                 <p className="text-lg leading-relaxed">
                   I'm Nathan Haliday, and my roots stretch from New Zealand to the ancient Viking settlements of Britain. 
                   Currently calling Pokeno my home, I'm proud to be part of the Pokeno Razorbacks Softball Club.
@@ -39,18 +41,18 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-6">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Viking Heritage in Britain</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+        <Card className="shadow-xl overflow-hidden">
+          <CardContent className="p-8">
+            <h2 className="text-3xl font-semibold text-primary mb-8">Viking Heritage in Britain</h2>
+            <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/5/50/Viking_Expansion.svg"
                   alt="Map showing Viking expansion routes in Britain"
-                  className="w-full rounded-md"
+                  className="w-full rounded-lg shadow-lg"
                 />
               </div>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <p className="text-lg leading-relaxed">
                   The Vikings left an indelible mark on British history, establishing settlements 
                   across the British Isles. Their influence can still be seen today in place names, 

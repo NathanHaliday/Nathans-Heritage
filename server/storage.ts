@@ -1,15 +1,19 @@
-import { type Heritage, type InsertHeritage } from "@shared/schema";
+import { type Heritage, type InsertHeritage, defaultHeritage } from "@shared/schema";
 
 export interface IStorage {
-  getHeritage(): Promise<Heritage | undefined>;
+  getHeritage(): Promise<Heritage>;
   updateHeritage(heritage: InsertHeritage): Promise<Heritage>;
 }
 
 export class MemStorage implements IStorage {
-  private heritage?: Heritage;
+  private heritage: Heritage;
   private currentId: number = 1;
 
-  async getHeritage(): Promise<Heritage | undefined> {
+  constructor() {
+    this.heritage = { ...defaultHeritage, id: this.currentId };
+  }
+
+  async getHeritage(): Promise<Heritage> {
     return this.heritage;
   }
 
