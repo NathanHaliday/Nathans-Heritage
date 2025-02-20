@@ -2,7 +2,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { insertPepehaSchema, type InsertPepeha, type Pepeha } from "@shared/schema";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -51,6 +58,21 @@ export default function Edit() {
     },
   });
 
+  const fields = [
+    { label: "Maunga", name: "maunga" },
+    { label: "Maunga (English)", name: "maungaEnglish" },
+    { label: "Awa", name: "awa" },
+    { label: "Awa (English)", name: "awaEnglish" },
+    { label: "Iwi", name: "iwi" },
+    { label: "Iwi (English)", name: "iwiEnglish" },
+    { label: "Hapū", name: "hapu" },
+    { label: "Hapū (English)", name: "hapuEnglish" },
+    { label: "Marae", name: "marae" },
+    { label: "Marae (English)", name: "maraeEnglish" },
+    { label: "Tūpuna", name: "tupuna" },
+    { label: "Tūpuna (English)", name: "tupunaEnglish" },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-center">Edit Pepeha</h1>
@@ -59,35 +81,21 @@ export default function Edit() {
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
           className="space-y-6"
         >
-          {[
-            { label: "Maunga", name: "maunga" },
-            { label: "Maunga (English)", name: "maungaEnglish" },
-            { label: "Awa", name: "awa" },
-            { label: "Awa (English)", name: "awaEnglish" },
-            { label: "Iwi", name: "iwi" },
-            { label: "Iwi (English)", name: "iwiEnglish" },
-            { label: "Hapū", name: "hapu" },
-            { label: "Hapū (English)", name: "hapuEnglish" },
-            { label: "Marae", name: "marae" },
-            { label: "Marae (English)", name: "maraeEnglish" },
-            { label: "Tūpuna", name: "tupuna" },
-            { label: "Tūpuna (English)", name: "tupunaEnglish" },
-          ].map(({ label, name }) => (
-            <div key={name}>
-              <Form.Field
-                control={form.control}
-                name={name as keyof InsertPepeha}
-                render={({ field }) => (
-                  <Form.Item>
-                    <Form.Label>{label}</Form.Label>
-                    <Form.Control>
-                      <Input {...field} />
-                    </Form.Control>
-                    <Form.Message />
-                  </Form.Item>
-                )}
-              />
-            </div>
+          {fields.map(({ label, name }) => (
+            <FormField
+              key={name}
+              control={form.control}
+              name={name as keyof InsertPepeha}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{label}</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           ))}
           <Button
             type="submit"
