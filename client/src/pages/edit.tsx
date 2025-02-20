@@ -9,6 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -22,18 +23,18 @@ export default function Edit() {
   const form = useForm<InsertPepeha>({
     resolver: zodResolver(insertPepehaSchema),
     defaultValues: pepeha || {
-      maunga: "",
       maungaEnglish: "",
-      awa: "",
+      maunga: "",
       awaEnglish: "",
-      iwi: "",
+      awa: "",
       iwiEnglish: "",
-      hapu: "",
+      iwi: "",
       hapuEnglish: "",
-      marae: "",
+      hapu: "",
       maraeEnglish: "",
-      tupuna: "",
+      marae: "",
       tupunaEnglish: "",
+      tupuna: "",
     },
   });
 
@@ -46,42 +47,90 @@ export default function Edit() {
       queryClient.invalidateQueries({ queryKey: ["/api/pepeha"] });
       toast({
         title: "Success",
-        description: "Your Pepeha has been updated",
+        description: "Your introduction has been updated",
       });
     },
     onError: () => {
       toast({
         title: "Error",
-        description: "Failed to update Pepeha",
+        description: "Failed to update your introduction",
         variant: "destructive",
       });
     },
   });
 
   const fields = [
-    { label: "Maunga", name: "maunga" },
-    { label: "Maunga (English)", name: "maungaEnglish" },
-    { label: "Awa", name: "awa" },
-    { label: "Awa (English)", name: "awaEnglish" },
-    { label: "Iwi", name: "iwi" },
-    { label: "Iwi (English)", name: "iwiEnglish" },
-    { label: "Hapū", name: "hapu" },
-    { label: "Hapū (English)", name: "hapuEnglish" },
-    { label: "Marae", name: "marae" },
-    { label: "Marae (English)", name: "maraeEnglish" },
-    { label: "Tūpuna", name: "tupuna" },
-    { label: "Tūpuna (English)", name: "tupunaEnglish" },
+    { 
+      label: "Mountain Name (English)", 
+      name: "maungaEnglish",
+      description: "The mountain you identify with"
+    },
+    { 
+      label: "Mountain Name (Māori)", 
+      name: "maunga",
+      description: "Maunga - Traditional name of your mountain" 
+    },
+    { 
+      label: "River or Water Body (English)", 
+      name: "awaEnglish",
+      description: "The river or water body you identify with"
+    },
+    { 
+      label: "River or Water Body (Māori)", 
+      name: "awa",
+      description: "Awa - Traditional name of your river" 
+    },
+    { 
+      label: "Tribe Name (English)", 
+      name: "iwiEnglish",
+      description: "Your tribal affiliation"
+    },
+    { 
+      label: "Tribe Name (Māori)", 
+      name: "iwi",
+      description: "Iwi - Your tribe's traditional name" 
+    },
+    { 
+      label: "Subtribe Name (English)", 
+      name: "hapuEnglish",
+      description: "Your subtribe or clan"
+    },
+    { 
+      label: "Subtribe Name (Māori)", 
+      name: "hapu",
+      description: "Hapū - Your subtribe's traditional name" 
+    },
+    { 
+      label: "Meeting House (English)", 
+      name: "maraeEnglish",
+      description: "Your community's gathering place"
+    },
+    { 
+      label: "Meeting House (Māori)", 
+      name: "marae",
+      description: "Marae - Traditional name of your meeting house" 
+    },
+    { 
+      label: "Ancestors (English)", 
+      name: "tupunaEnglish",
+      description: "Names of your ancestors"
+    },
+    { 
+      label: "Ancestors (Māori)", 
+      name: "tupuna",
+      description: "Tūpuna - Traditional names of your ancestors" 
+    },
   ];
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Edit Pepeha</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your Cultural Introduction</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
           className="space-y-6"
         >
-          {fields.map(({ label, name }) => (
+          {fields.map(({ label, name, description }) => (
             <FormField
               key={name}
               control={form.control}
@@ -92,6 +141,7 @@ export default function Edit() {
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
+                  <FormDescription>{description}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -102,7 +152,7 @@ export default function Edit() {
             className="w-full"
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? "Saving..." : "Save Pepeha"}
+            {mutation.isPending ? "Saving..." : "Save Introduction"}
           </Button>
         </form>
       </Form>

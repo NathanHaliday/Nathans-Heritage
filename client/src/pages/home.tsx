@@ -21,26 +21,50 @@ export default function Home() {
   if (!pepeha) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Welcome to Pepeha</h1>
+        <h1 className="text-2xl font-bold mb-4">Welcome to Your Cultural Introduction</h1>
         <p className="text-muted-foreground">
-          Start by adding your Pepeha information in the Edit page.
+          Start by adding your personal and cultural information in the Edit page.
         </p>
       </div>
     );
   }
 
   const sections = [
-    { title: "Maunga (Mountain)", maori: pepeha.maunga, english: pepeha.maungaEnglish },
-    { title: "Awa (River)", maori: pepeha.awa, english: pepeha.awaEnglish },
-    { title: "Iwi (Tribe)", maori: pepeha.iwi, english: pepeha.iwiEnglish },
-    { title: "Hapū (Sub-tribe)", maori: pepeha.hapu, english: pepeha.hapuEnglish },
-    { title: "Marae", maori: pepeha.marae, english: pepeha.maraeEnglish },
-    { title: "Tūpuna (Ancestors)", maori: pepeha.tupuna, english: pepeha.tupunaEnglish },
+    { 
+      title: "Mountain (Maunga)", 
+      maori: pepeha.maunga, 
+      english: pepeha.maungaEnglish 
+    },
+    { 
+      title: "River (Awa)", 
+      maori: pepeha.awa, 
+      english: pepeha.awaEnglish 
+    },
+    { 
+      title: "Tribe (Iwi)", 
+      maori: pepeha.iwi, 
+      english: pepeha.iwiEnglish 
+    },
+    { 
+      title: "Subtribe (Hapū)", 
+      maori: pepeha.hapu, 
+      english: pepeha.hapuEnglish 
+    },
+    { 
+      title: "Meeting House (Marae)", 
+      maori: pepeha.marae, 
+      english: pepeha.maraeEnglish 
+    },
+    { 
+      title: "Ancestors (Tūpuna)", 
+      maori: pepeha.tupuna, 
+      english: pepeha.tupunaEnglish 
+    },
   ];
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8 text-center">My Pepeha</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">My Cultural Introduction</h1>
       <div className="max-w-2xl mx-auto">
         {sections.map((section, index) => (
           <PepehaSection key={index} {...section} index={index} />
