@@ -1,62 +1,43 @@
-import { useQuery } from "@tanstack/react-query";
-import { type Heritage } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  const { data: heritage, isLoading } = useQuery<Heritage | null>({
-    queryKey: ["/api/heritage"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="space-y-4">
-        <Skeleton className="h-96 w-full" />
-      </div>
-    );
-  }
-
-  if (!heritage) {
-    return (
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Welcome to Your British Heritage Journey</h1>
-        <p className="text-muted-foreground">
-          Start by adding your heritage information in the Edit page.
-        </p>
-      </div>
-    );
-  }
-
-  const lines = [
-    `My name is ${heritage.name}`,
-    `My land is ${heritage.land}`,
-    `My river is ${heritage.river}`,
-    `My mountain is ${heritage.mountain}`,
-    `My ancestors come from ${heritage.ancestors}`,
-    `My people are ${heritage.people}`,
-    `My home is ${heritage.home}`,
-    `I am ${heritage.name}`,
-  ];
-
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-8 text-center">My British Heritage</h1>
-      <div className="max-w-2xl mx-auto">
-        <Card>
+    <div className="max-w-4xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className="text-4xl font-bold mb-8 text-center">Welcome to My British Heritage Journey</h1>
+
+        <Card className="mb-8">
           <CardContent className="p-6">
-            <div className="space-y-4">
-              {lines.map((line, index) => (
-                <p 
-                  key={index} 
-                  className="text-lg font-medium leading-relaxed"
-                >
-                  {line}
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="relative w-full aspect-[3/4]">
+                <AspectRatio ratio={3/4} className="bg-muted">
+                  <img
+                    src="/attached_assets/Pepeha Portrait.png"
+                    alt="Portrait showcasing my connection to British heritage"
+                    className="object-cover rounded-md"
+                  />
+                </AspectRatio>
+              </div>
+              <div className="space-y-4">
+                <h2 className="text-2xl font-semibold text-primary">About Me</h2>
+                <p className="text-lg leading-relaxed">
+                  Welcome to my personal heritage journey. Here you'll discover my British roots,
+                  family connections, and the places that have shaped who I am.
                 </p>
-              ))}
+                <p className="text-lg leading-relaxed">
+                  Explore my full heritage narrative and family connections through the navigation menu above.
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </div>
   );
 }
