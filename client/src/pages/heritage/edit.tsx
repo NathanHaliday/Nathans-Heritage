@@ -23,13 +23,12 @@ export default function HeritageEdit() {
   const form = useForm<InsertHeritage>({
     resolver: zodResolver(insertHeritageSchema),
     defaultValues: heritage || {
-      name: "",
-      land: "",
-      river: "",
-      mountain: "",
-      ancestors: "",
-      people: "",
-      home: "",
+      name: "Nathan Haliday",
+      land: "New Zealand",
+      river: "Waikato River",
+      ancestors: "Nordic and British",
+      people: "Pokeno Razorbacks Softball Club",
+      home: "Pokeno",
     },
   });
 
@@ -63,38 +62,33 @@ export default function HeritageEdit() {
     { 
       label: "Your Land", 
       name: "land",
-      description: "A significant place to you – e.g., your home county or city" 
+      description: "A significant place to you" 
     },
     { 
       label: "Your River", 
       name: "river",
-      description: "A river significant to you – e.g., Thames, Mersey, Avon" 
-    },
-    { 
-      label: "Your Mountain", 
-      name: "mountain",
-      description: "A mountain or hill important to you – e.g., Scafell Pike, Ben Nevis, One Tree Hill" 
+      description: "A river significant to you" 
     },
     { 
       label: "Your Ancestors", 
       name: "ancestors",
-      description: "Your family's historical roots – e.g., Anglo-Saxon, Celtic, Norse" 
+      description: "Your family's historical roots" 
     },
     { 
       label: "Your People", 
       name: "people",
-      description: "A community or cultural group important to you – e.g., the people of Yorkshire, the Londoners" 
+      description: "A community or cultural group important to you" 
     },
     { 
       label: "Your Home", 
       name: "home",
-      description: "Your home or region – e.g., the rolling hills of Somerset, the streets of Manchester" 
+      description: "Your home or region" 
     }
   ];
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your British Heritage</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your Heritage</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}

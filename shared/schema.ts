@@ -7,7 +7,6 @@ export const heritage = pgTable("heritage", {
   name: text("name").notNull(),
   land: text("land").notNull(),
   river: text("river").notNull(),
-  mountain: text("mountain").notNull(),
   ancestors: text("ancestors").notNull(),
   people: text("people").notNull(),
   home: text("home").notNull(),
