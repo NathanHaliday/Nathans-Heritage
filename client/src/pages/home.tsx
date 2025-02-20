@@ -16,9 +16,9 @@ export default function Home() {
           <CardContent className="p-6">
             <div className="grid md:grid-cols-2 gap-6 items-center">
               <div className="relative w-full">
-                <AspectRatio ratio={1} className="bg-muted">
+                <AspectRatio ratio={1}>
                   <img
-                    src="/attached_assets/Pepeha Portrait.png"
+                    src="attached_assets/Pepeha Portrait.png"
                     alt="Portrait of Nathan Haliday"
                     className="object-cover rounded-md"
                   />
@@ -49,9 +49,6 @@ export default function Home() {
                   alt="Map showing Viking expansion routes in Britain"
                   className="w-full rounded-md"
                 />
-                <p className="text-sm text-muted-foreground mt-2">
-                  Viking expansion routes across Britain and Europe
-                </p>
               </div>
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed">

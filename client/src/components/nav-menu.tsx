@@ -11,11 +11,11 @@ export default function NavMenu() {
   ];
 
   return (
-    <nav className="border-b bg-card">
+    <nav className="border-b bg-primary text-primary-foreground">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/">
-            <a className="text-2xl font-bold text-primary">British Heritage</a>
+            <a className="text-2xl font-bold">British Heritage</a>
           </Link>
           <div className="flex space-x-4">
             {navItems.map((item) => (
@@ -24,21 +24,14 @@ export default function NavMenu() {
                   className={cn(
                     "px-3 py-2 rounded-md text-sm font-medium",
                     location === item.href
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent"
+                      ? "bg-primary-foreground text-primary"
+                      : "text-primary-foreground hover:bg-primary/90"
                   )}
                 >
                   {item.label}
                 </a>
               </Link>
             ))}
-            {location.startsWith("/heritage") && (
-              <Link href="/heritage/edit">
-                <a className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-accent">
-                  Edit
-                </a>
-              </Link>
-            )}
           </div>
         </div>
       </div>

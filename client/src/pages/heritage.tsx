@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { type Heritage } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
 
 export default function Heritage() {
   const { data: heritage, isLoading } = useQuery<Heritage | null>({
@@ -23,11 +21,8 @@ export default function Heritage() {
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-4">My British Heritage</h1>
         <p className="text-muted-foreground mb-4">
-          Start by adding your heritage information.
+          Heritage information is being loaded...
         </p>
-        <Link href="/heritage/edit">
-          <Button>Add Heritage Information</Button>
-        </Link>
       </div>
     );
   }
@@ -36,7 +31,6 @@ export default function Heritage() {
     `My name is ${heritage.name}`,
     `My land is ${heritage.land}`,
     `My river is ${heritage.river}`,
-    `My mountain is ${heritage.mountain}`,
     `My ancestors come from ${heritage.ancestors}`,
     `My people are ${heritage.people}`,
     `My home is ${heritage.home}`,
