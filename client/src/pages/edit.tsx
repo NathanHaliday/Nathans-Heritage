@@ -23,18 +23,13 @@ export default function Edit() {
   const form = useForm<InsertHeritage>({
     resolver: zodResolver(insertHeritageSchema),
     defaultValues: heritage || {
-      hometown: "",
-      hometownGerman: "",
+      name: "",
+      land: "",
       river: "",
-      riverGerman: "",
-      region: "",
-      regionGerman: "",
-      clan: "",
-      clanNordic: "",
-      settlement: "",
-      settlementGerman: "",
+      mountain: "",
       ancestors: "",
-      ancestorsNordic: "",
+      people: "",
+      home: "",
     },
   });
 
@@ -61,70 +56,45 @@ export default function Edit() {
 
   const fields = [
     { 
-      label: "Hometown (English)", 
-      name: "hometown",
-      description: "Your hometown or city of origin"
+      label: "Your Name", 
+      name: "name",
+      description: "Your full name"
     },
     { 
-      label: "Hometown (German)", 
-      name: "hometownGerman",
-      description: "The German name of your hometown (if applicable)" 
+      label: "Your Land", 
+      name: "land",
+      description: "A significant place to you – e.g., your home county or city" 
     },
     { 
-      label: "River", 
+      label: "Your River", 
       name: "river",
-      description: "The river associated with your heritage"
+      description: "A river significant to you – e.g., Thames, Mersey, Avon" 
     },
     { 
-      label: "River (German)", 
-      name: "riverGerman",
-      description: "The German name of the river (e.g. Rhein, Donau)" 
+      label: "Your Mountain", 
+      name: "mountain",
+      description: "A mountain or hill important to you – e.g., Scafell Pike, Ben Nevis, One Tree Hill" 
     },
     { 
-      label: "Region", 
-      name: "region",
-      description: "Your ancestral region or state"
-    },
-    { 
-      label: "Region (German)", 
-      name: "regionGerman",
-      description: "The German name of your region (e.g. Bayern, Sachsen)" 
-    },
-    { 
-      label: "Viking Clan", 
-      name: "clan",
-      description: "Your Viking clan or lineage"
-    },
-    { 
-      label: "Clan (Nordic)", 
-      name: "clanNordic",
-      description: "The Nordic name of your clan (if known)" 
-    },
-    { 
-      label: "Settlement", 
-      name: "settlement",
-      description: "Your ancestral settlement or village"
-    },
-    { 
-      label: "Settlement (German)", 
-      name: "settlementGerman",
-      description: "The German name of your settlement" 
-    },
-    { 
-      label: "Notable Ancestors", 
+      label: "Your Ancestors", 
       name: "ancestors",
-      description: "Your notable ancestors (like Ragnar Lodbrok)"
+      description: "Your family's historical roots – e.g., Anglo-Saxon, Celtic, Norse" 
     },
     { 
-      label: "Ancestors (Nordic)", 
-      name: "ancestorsNordic",
-      description: "The Nordic names of your ancestors" 
+      label: "Your People", 
+      name: "people",
+      description: "A community or cultural group important to you – e.g., the people of Yorkshire, the Londoners" 
     },
+    { 
+      label: "Your Home", 
+      name: "home",
+      description: "Your home or region – e.g., the rolling hills of Somerset, the streets of Manchester" 
+    }
   ];
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your Heritage</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your British Heritage</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}

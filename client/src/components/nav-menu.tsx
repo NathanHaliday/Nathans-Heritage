@@ -9,7 +9,7 @@ export default function NavMenu() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center space-x-8">
           <Link href="/">
-            <a className="text-2xl font-bold text-primary">Germanic & Nordic Heritage</a>
+            <a className="text-2xl font-bold text-primary">British Heritage</a>
           </Link>
           <div className="flex space-x-4">
             <Link href="/">

@@ -4,18 +4,13 @@ import { z } from "zod";
 
 export const heritage = pgTable("heritage", {
   id: serial("id").primaryKey(),
-  hometown: text("hometown").notNull(),
-  hometownGerman: text("hometown_german").notNull(),
+  name: text("name").notNull(),
+  land: text("land").notNull(),
   river: text("river").notNull(),
-  riverGerman: text("river_german").notNull(),
-  region: text("region").notNull(),
-  regionGerman: text("region_german").notNull(),
-  clan: text("clan").notNull(),
-  clanNordic: text("clan_nordic").notNull(),
-  settlement: text("settlement").notNull(),
-  settlementGerman: text("settlement_german").notNull(),
+  mountain: text("mountain").notNull(),
   ancestors: text("ancestors").notNull(),
-  ancestorsNordic: text("ancestors_nordic").notNull(),
+  people: text("people").notNull(),
+  home: text("home").notNull(),
 });
 
 export const insertHeritageSchema = createInsertSchema(heritage).omit({ id: true });
