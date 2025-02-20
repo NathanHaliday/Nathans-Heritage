@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { insertPepehaSchema, type InsertPepeha, type Pepeha } from "@shared/schema";
+import { insertHeritageSchema, type InsertHeritage, type Heritage } from "@shared/schema";
 import {
   Form,
   FormControl,
@@ -18,42 +18,42 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 
 export default function Edit() {
   const { toast } = useToast();
-  const { data: pepeha } = useQuery<Pepeha | null>({ queryKey: ["/api/pepeha"] });
+  const { data: heritage } = useQuery<Heritage | null>({ queryKey: ["/api/heritage"] });
 
-  const form = useForm<InsertPepeha>({
-    resolver: zodResolver(insertPepehaSchema),
-    defaultValues: pepeha || {
-      maungaEnglish: "",
-      maunga: "",
-      awaEnglish: "",
-      awa: "",
-      iwiEnglish: "",
-      iwi: "",
-      hapuEnglish: "",
-      hapu: "",
-      maraeEnglish: "",
-      marae: "",
-      tupunaEnglish: "",
-      tupuna: "",
+  const form = useForm<InsertHeritage>({
+    resolver: zodResolver(insertHeritageSchema),
+    defaultValues: heritage || {
+      hometown: "",
+      hometownGerman: "",
+      river: "",
+      riverGerman: "",
+      region: "",
+      regionGerman: "",
+      clan: "",
+      clanNordic: "",
+      settlement: "",
+      settlementGerman: "",
+      ancestors: "",
+      ancestorsNordic: "",
     },
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: InsertPepeha) => {
-      const res = await apiRequest("POST", "/api/pepeha", data);
+    mutationFn: async (data: InsertHeritage) => {
+      const res = await apiRequest("POST", "/api/heritage", data);
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/pepeha"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/heritage"] });
       toast({
         title: "Success",
-        description: "Your introduction has been updated",
+        description: "Your heritage information has been updated",
       });
     },
     onError: () => {
       toast({
         title: "Error",
-        description: "Failed to update your introduction",
+        description: "Failed to update your heritage information",
         variant: "destructive",
       });
     },
@@ -61,70 +61,70 @@ export default function Edit() {
 
   const fields = [
     { 
-      label: "Mountain Name (English)", 
-      name: "maungaEnglish",
-      description: "The mountain you identify with"
+      label: "Hometown (English)", 
+      name: "hometown",
+      description: "Your hometown or city of origin"
     },
     { 
-      label: "Mountain Name (Māori)", 
-      name: "maunga",
-      description: "Maunga - Traditional name of your mountain" 
+      label: "Hometown (German)", 
+      name: "hometownGerman",
+      description: "The German name of your hometown (if applicable)" 
     },
     { 
-      label: "River or Water Body (English)", 
-      name: "awaEnglish",
-      description: "The river or water body you identify with"
+      label: "River", 
+      name: "river",
+      description: "The river associated with your heritage"
     },
     { 
-      label: "River or Water Body (Māori)", 
-      name: "awa",
-      description: "Awa - Traditional name of your river" 
+      label: "River (German)", 
+      name: "riverGerman",
+      description: "The German name of the river (e.g. Rhein, Donau)" 
     },
     { 
-      label: "Tribe Name (English)", 
-      name: "iwiEnglish",
-      description: "Your tribal affiliation"
+      label: "Region", 
+      name: "region",
+      description: "Your ancestral region or state"
     },
     { 
-      label: "Tribe Name (Māori)", 
-      name: "iwi",
-      description: "Iwi - Your tribe's traditional name" 
+      label: "Region (German)", 
+      name: "regionGerman",
+      description: "The German name of your region (e.g. Bayern, Sachsen)" 
     },
     { 
-      label: "Subtribe Name (English)", 
-      name: "hapuEnglish",
-      description: "Your subtribe or clan"
+      label: "Viking Clan", 
+      name: "clan",
+      description: "Your Viking clan or lineage"
     },
     { 
-      label: "Subtribe Name (Māori)", 
-      name: "hapu",
-      description: "Hapū - Your subtribe's traditional name" 
+      label: "Clan (Nordic)", 
+      name: "clanNordic",
+      description: "The Nordic name of your clan (if known)" 
     },
     { 
-      label: "Meeting House (English)", 
-      name: "maraeEnglish",
-      description: "Your community's gathering place"
+      label: "Settlement", 
+      name: "settlement",
+      description: "Your ancestral settlement or village"
     },
     { 
-      label: "Meeting House (Māori)", 
-      name: "marae",
-      description: "Marae - Traditional name of your meeting house" 
+      label: "Settlement (German)", 
+      name: "settlementGerman",
+      description: "The German name of your settlement" 
     },
     { 
-      label: "Ancestors (English)", 
-      name: "tupunaEnglish",
-      description: "Names of your ancestors"
+      label: "Notable Ancestors", 
+      name: "ancestors",
+      description: "Your notable ancestors (like Ragnar Lodbrok)"
     },
     { 
-      label: "Ancestors (Māori)", 
-      name: "tupuna",
-      description: "Tūpuna - Traditional names of your ancestors" 
+      label: "Ancestors (Nordic)", 
+      name: "ancestorsNordic",
+      description: "The Nordic names of your ancestors" 
     },
   ];
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your Cultural Introduction</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Edit Your Heritage</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
@@ -134,7 +134,7 @@ export default function Edit() {
             <FormField
               key={name}
               control={form.control}
-              name={name as keyof InsertPepeha}
+              name={name as keyof InsertHeritage}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{label}</FormLabel>
@@ -152,7 +152,7 @@ export default function Edit() {
             className="w-full"
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? "Saving..." : "Save Introduction"}
+            {mutation.isPending ? "Saving..." : "Save Heritage"}
           </Button>
         </form>
       </Form>

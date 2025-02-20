@@ -1,21 +1,21 @@
-import { type Pepeha, type InsertPepeha } from "@shared/schema";
+import { type Heritage, type InsertHeritage } from "@shared/schema";
 
 export interface IStorage {
-  getPepeha(): Promise<Pepeha | undefined>;
-  updatePepeha(pepeha: InsertPepeha): Promise<Pepeha>;
+  getHeritage(): Promise<Heritage | undefined>;
+  updateHeritage(heritage: InsertHeritage): Promise<Heritage>;
 }
 
 export class MemStorage implements IStorage {
-  private pepeha?: Pepeha;
+  private heritage?: Heritage;
   private currentId: number = 1;
 
-  async getPepeha(): Promise<Pepeha | undefined> {
-    return this.pepeha;
+  async getHeritage(): Promise<Heritage | undefined> {
+    return this.heritage;
   }
 
-  async updatePepeha(insertPepeha: InsertPepeha): Promise<Pepeha> {
-    this.pepeha = { ...insertPepeha, id: this.currentId };
-    return this.pepeha;
+  async updateHeritage(insertHeritage: InsertHeritage): Promise<Heritage> {
+    this.heritage = { ...insertHeritage, id: this.currentId };
+    return this.heritage;
   }
 }
 

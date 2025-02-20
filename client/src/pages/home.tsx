@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { type Pepeha } from "@shared/schema";
+import { type Heritage } from "@shared/schema";
 import PepehaSection from "@/components/pepeha-section";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
-  const { data: pepeha, isLoading } = useQuery<Pepeha | null>({
-    queryKey: ["/api/pepeha"],
+  const { data: heritage, isLoading } = useQuery<Heritage | null>({
+    queryKey: ["/api/heritage"],
   });
 
   if (isLoading) {
@@ -18,12 +18,12 @@ export default function Home() {
     );
   }
 
-  if (!pepeha) {
+  if (!heritage) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Welcome to Your Cultural Introduction</h1>
+        <h1 className="text-2xl font-bold mb-4">Welcome to Your Heritage Journey</h1>
         <p className="text-muted-foreground">
-          Start by adding your personal and cultural information in the Edit page.
+          Start by adding your German and Nordic heritage information in the Edit page.
         </p>
       </div>
     );
@@ -31,40 +31,40 @@ export default function Home() {
 
   const sections = [
     { 
-      title: "Mountain (Maunga)", 
-      maori: pepeha.maunga, 
-      english: pepeha.maungaEnglish 
+      title: "Hometown", 
+      maori: heritage.hometownGerman, 
+      english: heritage.hometown 
     },
     { 
-      title: "River (Awa)", 
-      maori: pepeha.awa, 
-      english: pepeha.awaEnglish 
+      title: "River", 
+      maori: heritage.riverGerman, 
+      english: heritage.river 
     },
     { 
-      title: "Tribe (Iwi)", 
-      maori: pepeha.iwi, 
-      english: pepeha.iwiEnglish 
+      title: "Region", 
+      maori: heritage.regionGerman, 
+      english: heritage.region 
     },
     { 
-      title: "Subtribe (Hapū)", 
-      maori: pepeha.hapu, 
-      english: pepeha.hapuEnglish 
+      title: "Viking Clan", 
+      maori: heritage.clanNordic, 
+      english: heritage.clan 
     },
     { 
-      title: "Meeting House (Marae)", 
-      maori: pepeha.marae, 
-      english: pepeha.maraeEnglish 
+      title: "Settlement", 
+      maori: heritage.settlementGerman, 
+      english: heritage.settlement 
     },
     { 
-      title: "Ancestors (Tūpuna)", 
-      maori: pepeha.tupuna, 
-      english: pepeha.tupunaEnglish 
+      title: "Ancestors", 
+      maori: heritage.ancestorsNordic, 
+      english: heritage.ancestors 
     },
   ];
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8 text-center">My Cultural Introduction</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">My Germanic & Nordic Heritage</h1>
       <div className="max-w-2xl mx-auto">
         {sections.map((section, index) => (
           <PepehaSection key={index} {...section} index={index} />

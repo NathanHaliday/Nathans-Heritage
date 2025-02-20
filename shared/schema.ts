@@ -2,23 +2,23 @@ import { pgTable, text, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const pepeha = pgTable("pepeha", {
+export const heritage = pgTable("heritage", {
   id: serial("id").primaryKey(),
-  maunga: text("maunga").notNull(),
-  maungaEnglish: text("maunga_english").notNull(),
-  awa: text("awa").notNull(),
-  awaEnglish: text("awa_english").notNull(),
-  iwi: text("iwi").notNull(),
-  iwiEnglish: text("iwi_english").notNull(),
-  hapu: text("hapu").notNull(),
-  hapuEnglish: text("hapu_english").notNull(),
-  marae: text("marae").notNull(),
-  maraeEnglish: text("marae_english").notNull(),
-  tupuna: text("tupuna").notNull(),
-  tupunaEnglish: text("tupuna_english").notNull(),
+  hometown: text("hometown").notNull(),
+  hometownGerman: text("hometown_german").notNull(),
+  river: text("river").notNull(),
+  riverGerman: text("river_german").notNull(),
+  region: text("region").notNull(),
+  regionGerman: text("region_german").notNull(),
+  clan: text("clan").notNull(),
+  clanNordic: text("clan_nordic").notNull(),
+  settlement: text("settlement").notNull(),
+  settlementGerman: text("settlement_german").notNull(),
+  ancestors: text("ancestors").notNull(),
+  ancestorsNordic: text("ancestors_nordic").notNull(),
 });
 
-export const insertPepehaSchema = createInsertSchema(pepeha).omit({ id: true });
+export const insertHeritageSchema = createInsertSchema(heritage).omit({ id: true });
 
-export type InsertPepeha = z.infer<typeof insertPepehaSchema>;
-export type Pepeha = typeof pepeha.$inferSelect;
+export type InsertHeritage = z.infer<typeof insertHeritageSchema>;
+export type Heritage = typeof heritage.$inferSelect;
