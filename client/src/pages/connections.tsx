@@ -6,32 +6,26 @@ export default function Hobbies() {
   const hobbies = [
     {
       title: "Bass Guitar",
-      content: "Playing bass guitar",
-      image: "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?w=500&q=80",
+      image: "https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&q=80",
     },
     {
       title: "Yu-Gi-Oh!",
-      content: "Trading card game enthusiast",
-      image: "https://images.unsplash.com/photo-1625714508526-4f11e8304de0?w=500&q=80",
+      image: "https://images.unsplash.com/photo-1632406897798-e5645ed90595?w=500&q=80",
     },
     {
       title: "Speedcubing",
-      content: "Solving Rubik's cubes quickly",
       image: "https://images.unsplash.com/photo-1577401239170-897942555fb3?w=500&q=80",
     },
     {
       title: "Yo-Yo",
-      content: "Performing yo-yo tricks",
-      image: "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=500&q=80",
+      image: "https://images.unsplash.com/photo-1589578527966-400c0d891c53?w=500&q=80",
     },
     {
       title: "Gaming",
-      content: "Video game enthusiast",
       image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500&q=80",
     },
     {
       title: "Mathematics",
-      content: "Advanced high school mathematics",
       image: "https://images.unsplash.com/photo-1635372722656-389f87a941b7?w=500&q=80",
     },
   ];
@@ -64,11 +58,8 @@ export default function Hobbies() {
                 />
               </div>
               <CardHeader>
-                <CardTitle>{hobby.title}</CardTitle>
+                <CardTitle className="text-center">{hobby.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{hobby.content}</p>
-              </CardContent>
             </Card>
           </motion.div>
         ))}
