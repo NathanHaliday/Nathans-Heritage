@@ -25,26 +25,26 @@ export default function Heritage() {
   const sections = [
     {
       title: "Personal Identity",
-      content: `I am ${heritage.name}`,
+      content: `My name is ${heritage.name}`,
       className: "border-l-4 border-primary",
     },
     {
       title: "Ancestral Heritage",
-      content: `My ancestors come from ${heritage.ancestors}`,
+      content: `My ancestral roots trace back to ${heritage.ancestors}`,
       className: "border-l-4 border-blue-500",
     },
     {
       title: "Significant Places",
       content: [
-        `My land is ${heritage.land}`,
-        `My river is ${heritage.river}`,
-        `My home is ${heritage.home}`,
+        `I am from ${heritage.land}`,
+        `The ${heritage.river} flows through my homeland`,
+        `I currently reside in ${heritage.home}`,
       ],
       className: "border-l-4 border-green-500",
     },
     {
       title: "Community",
-      content: `My people are ${heritage.people}`,
+      content: `I am proud to be part of ${heritage.people}`,
       className: "border-l-4 border-purple-500",
     },
   ];
