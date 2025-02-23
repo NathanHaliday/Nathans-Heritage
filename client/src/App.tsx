@@ -6,7 +6,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Heritage from "@/pages/heritage";
 import HeritageEdit from "@/pages/heritage/edit";
-import Connections from "@/pages/connections";
+import Hobbies from "@/pages/connections";
 import NavMenu from "@/components/nav-menu";
 
 function Router() {
