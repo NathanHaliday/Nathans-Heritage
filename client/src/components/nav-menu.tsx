@@ -7,7 +7,7 @@ export default function NavMenu() {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/heritage", label: "Heritage" },
-    { href: "/connections", label: "Connections" },
+    { href: "/hobbies", label: "Hobbies" },
   ];
 
   return (
