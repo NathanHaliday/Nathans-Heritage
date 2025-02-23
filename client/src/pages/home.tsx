@@ -29,12 +29,11 @@ export default function Home() {
               <div className="space-y-6">
                 <h2 className="text-3xl font-semibold text-primary">About Me</h2>
                 <p className="text-lg leading-relaxed">
-                  I'm Nathan Haliday, and my roots stretch from New Zealand to the ancient Viking settlements of Britain. 
-                  Currently calling Pokeno my home, I'm proud to be part of the Pokeno Razorbacks Softball Club.
+                  I'm Nathan Haliday, and I was born in New Zealand, Middlemore Hospital. My roots stretch out to the ancient Viking settlements of Britain, near Hull.
+                  Currently calling Pokeno my home, I'm proud to be part of the Pokeno Razorbacks Softball Club, playing for the U15s and umpiring other games.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  My connection to the Waikato River and my Nordic-British ancestry shapes who I am today. This journey 
-                  through my heritage tells the story of how these diverse cultural threads have woven together.
+                  Living in Pokeno means the Waikato River is quite important to me, and it is New Zealand's longest river which generates 10% of the nation's electricity through hydro-electric dams.
                 </p>
               </div>
             </div>
@@ -52,14 +51,14 @@ export default function Home() {
                   className="w-full rounded-lg shadow-lg"
                 />
               </div>
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <p className="text-lg leading-relaxed">
-                  The Vikings left an indelible mark on British history, establishing settlements 
+                  The Vikings left a prominent mark on British history, establishing settlements 
                   across the British Isles. Their influence can still be seen today in place names, 
-                  cultural practices, and the genetic makeup of many British people.
+                  cultural practices, and the genetic makeup of many British people, including myself. In the Ninth Century, Ragnar Lodbrok, a Danish king and warrior, travelled through Hull, rading villages in England.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  My ancestors were part of this rich heritage, contributing to the diverse tapestry 
+                  My ancestors were part of this rich heritage, contributing to the diverse variety 
                   of British culture we see today.
                 </p>
               </div>

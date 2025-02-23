@@ -25,9 +25,9 @@ export default function HeritageEdit() {
     defaultValues: heritage || {
       name: "Nathan Haliday",
       land: "New Zealand",
-      river: "Waikato River",
-      ancestors: "Nordic and British",
-      people: "Pokeno Razorbacks Softball Club",
+      river: "the Waikato River",
+      ancestors: "the Nordic and British areas",
+      people: "the Pokeno Razorbacks Softball Club",
       home: "Pokeno",
     },
   });
