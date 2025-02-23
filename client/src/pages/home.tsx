@@ -20,8 +20,8 @@ export default function Home() {
               <div className="relative w-full">
                 <AspectRatio ratio={1}>
                   <img
-                    src="./attached_assets/space_portrait.png"
-                    alt="Portrait with cosmic theme"
+                    src="./attached_assets/Pepeha Portrait.png"
+                    alt="Portrait of Nathan Haliday"
                     className="object-cover rounded-lg shadow-lg"
                   />
                 </AspectRatio>
