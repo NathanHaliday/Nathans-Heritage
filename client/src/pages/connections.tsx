@@ -18,7 +18,7 @@ export default function Hobbies() {
     },
     {
       title: "Yo-Yo",
-      image: "https://images.unsplash.com/photo-1589578527966-400c0d891c53?w=500&q=80",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnQpwRXMSXP6LJieMATsH_GTYxHcb9yi1Yfg&s",
     },
     {
       title: "Gaming",
