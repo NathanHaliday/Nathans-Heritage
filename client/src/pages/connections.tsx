@@ -6,15 +6,15 @@ export default function Hobbies() {
   const hobbies = [
     {
       title: "Bass Guitar",
-      image: "https://images.unsplash.com/photo-1621784166258-c6fdfff31879?w=500&q=80",
+      image: "https://mitchellguitars.com/wp-content/uploads/2018/11/Mitchell-FB-Series-Bass-Main-Mobile.jpg",
     },
     {
       title: "Yu-Gi-Oh!",
-      image: "https://images.unsplash.com/photo-1632406897798-e5645ed90595?w=500&q=80",
+      image: "https://i.ytimg.com/vi/7WJKIiFSj4k/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGHIgSyhFMA8=&rs=AOn4CLDdbjV5XCNjHMaeSjzzAF1rb_nUfw",
     },
     {
       title: "Speedcubing",
-      image: "https://images.unsplash.com/photo-1577401239170-897942555fb3?w=500&q=80",
+      image: "https://images.squarespace-cdn.com/content/v1/582cd3322994caad8bdc6c11/f45d4249-8c93-47f0-a883-1cd8bf2eacc9/Seedcubing-2024-LaurynMackenzie.jpg",
     },
     {
       title: "Yo-Yo",
