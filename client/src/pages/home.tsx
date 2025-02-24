@@ -22,6 +22,7 @@ export default function Home() {
                   <img
                     src="/attached_assets/Pepeha_Portrait.png"
                     alt="Portrait of Nathan Haliday"
+                    className="w-full h-full object-contain"
                   />
                 </AspectRatio>
               </div>
