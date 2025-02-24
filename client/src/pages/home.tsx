@@ -20,7 +20,7 @@ export default function Home() {
               <div className="relative w-full">
                 <AspectRatio ratio={1}>
                   <img
-                    src="/attached_assets/Pepeha_Portrait.png"
+                    src="./attached_assets/Pepeha_Portrait.png"
                     alt="Portrait of Nathan Haliday"
                     className="w-full h-full object-contain"
                   />
