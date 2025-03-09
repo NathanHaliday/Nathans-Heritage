@@ -24,13 +24,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"), // You may want to keep this if the source files are still in 'client/src'
+      "@": path.resolve(__dirname, "client", "src"), // Keep alias for the source files
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: __dirname,  // Set root to the project root, not 'client'
+  root: path.resolve(__dirname, "client"),  // Set root to the 'client' folder where source code and index.html reside
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: path.resolve(__dirname, "docs"), // Build output goes to the 'docs' folder for production
     emptyOutDir: true,
   },
 });

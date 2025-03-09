@@ -146,6 +146,7 @@ async function setupVite(app2, server) {
       const clientTemplate = path2.resolve(
         __dirname2,
         "..",
+        "docs",
         "index.html"
       );
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
