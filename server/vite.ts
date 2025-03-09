@@ -25,8 +25,8 @@ export function log(message: string, source = "express") {
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
-    hmr: true, // Enable HMR or leave it if it's already defined in vite.config.ts
-    // Remove or define allowedHosts properly, e.g., allowedHosts: ['localhost']
+    hmr: { server },
+    allowedHosts: true,
   };
 
   const vite = await createViteServer({
@@ -48,14 +48,14 @@ export async function setupVite(app: Express, server: Server) {
     const url = req.originalUrl;
 
     try {
+      // Update this line to point to the correct location of your index.html
       const clientTemplate = path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "index.html",
+        __dirname, // Current directory
+        "..", // Go one level up from the current directory
+        "index.html" // This is the correct path to the index.html file
       );
 
-      // always reload the index.html file from disk incase it changes
+      // always reload the index.html file from disk in case it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
