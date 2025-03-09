@@ -3,11 +3,12 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const viteLogger = createLogger();
 
@@ -43,12 +44,13 @@ export async function setupVite(app: Express, server: Server) {
     },
     server: {
       middlewareMode: true, // Important for using Vite in middleware mode with Express
-      hmr: { clientPort: 3000 }, // Ensure that HMR works
+      hmr: { clientPort: 5000 }, // Ensure that HMR works on port 5000
     },
     appType: "custom",
   });
 
   app.use(vite.middlewares);
+
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
@@ -84,4 +86,13 @@ export function serveStatic(app: Express) {
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
+}
+
+// Create an Express server and listen on port 5000
+export function startServer(app: Express) {
+  const server = app.listen(5000, () => {
+    console.log("Server running on port 5000");
+  });
+
+  return server;
 }
