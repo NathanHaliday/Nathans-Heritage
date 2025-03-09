@@ -17,7 +17,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 // Set the correct path based on the environment
 const indexHtmlPath = isProduction
-  ? path.resolve(__dirname, "..", "docs", "index.html")  // Production path (docs folder)
+  ? path.resolve(__dirname, "..", "dist", "index.html")  // Production path (dist folder)
   : path.resolve(__dirname, "..", "client", "index.html");  // Development path (client folder)
 
 export function log(message: string, source = "express") {
@@ -32,48 +32,51 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  const vite = await createViteServer({
-    ...viteConfig,
-    configFile: false,
-    customLogger: {
-      ...viteLogger,
-      error: (msg, options) => {
-        viteLogger.error(msg, options);
-        process.exit(1);
+  if (!isProduction) {
+    // Only create the Vite server if in development mode
+    const vite = await createViteServer({
+      ...viteConfig,
+      configFile: false,
+      customLogger: {
+        ...viteLogger,
+        error: (msg, options) => {
+          viteLogger.error(msg, options);
+          process.exit(1);
+        },
       },
-    },
-    server: {
-      middlewareMode: true, // Important for using Vite in middleware mode with Express
-      hmr: { clientPort: 5000 }, // Ensure that HMR works on port 5000
-    },
-    appType: "custom",
-  });
+      server: {
+        middlewareMode: true, // Important for using Vite in middleware mode with Express
+        hmr: { clientPort: 5000 }, // Ensure that HMR works on port 5000
+      },
+      appType: "custom",
+    });
 
-  app.use(vite.middlewares);
+    app.use(vite.middlewares);
 
-  app.use("*", async (req, res, next) => {
-    const url = req.originalUrl;
+    app.use("*", async (req, res, next) => {
+      const url = req.originalUrl;
 
-    try {
-      // Use the correct index.html path based on the environment
-      let template = await fs.promises.readFile(indexHtmlPath, "utf-8");
+      try {
+        // Use the correct index.html path based on the environment
+        let template = await fs.promises.readFile(indexHtmlPath, "utf-8");
 
-      // Modify the template (e.g., versioning)
-      template = template.replace(
-        `src="/src/main.tsx"`,
-        `src="/src/main.tsx?v=${nanoid()}"`,
-      );
-      const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
-    } catch (e) {
-      vite.ssrFixStacktrace(e as Error);
-      next(e);
-    }
-  });
+        // Modify the template (e.g., versioning)
+        template = template.replace(
+          `src="/src/main.tsx"`,
+          `src="/src/main.tsx?v=${nanoid()}"`,
+        );
+        const page = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      } catch (e) {
+        vite.ssrFixStacktrace(e as Error);
+        next(e);
+      }
+    });
+  }
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "..");
+  const distPath = path.resolve(__dirname, "..", "dist"); // Use the dist directory for production
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
@@ -81,8 +84,10 @@ export function serveStatic(app: Express) {
     );
   }
 
+  // Serve static files in production from dist folder
   app.use(express.static(distPath));
 
+  // For all other routes (especially client-side routing), send the index.html
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
