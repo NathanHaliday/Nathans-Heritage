@@ -25,8 +25,8 @@ export function log(message: string, source = "express") {
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true,
+    hmr: true, // Enable HMR or leave it if it's already defined in vite.config.ts
+    // Remove or define allowedHosts properly, e.g., allowedHosts: ['localhost']
   };
 
   const vite = await createViteServer({

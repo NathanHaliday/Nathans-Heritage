@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Import motion
 import { link } from "fs";
 
 export default function Hobbies() {
@@ -45,15 +45,16 @@ export default function Hobbies() {
       Link: "https://www.python.org/"
     },
     {
-     title: "Board Games",
-     image: "https://media.cnn.com/api/v1/images/stellar/prod/ap20129642475914.jpg?c=16x9&q=h_833,w_1480,c_fill",
-     Link: "https://en.wikipedia.org/wiki/Board_game"
+      title: "Board Games",
+      image: "https://media.cnn.com/api/v1/images/stellar/prod/ap20129642475914.jpg?c=16x9&q=h_833,w_1480,c_fill",
+      Link: "https://en.wikipedia.org/wiki/Board_game"
     }
   ];
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 
+      {/* Use motion.h1 instead of h1 */}
+      <motion.h1 
         className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -61,7 +62,7 @@ export default function Hobbies() {
         style={{ lineHeight: "1.4" }}
       >
         My Hobbies
-      </h1>
+      </motion.h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {hobbies.map((hobby, index) => (
