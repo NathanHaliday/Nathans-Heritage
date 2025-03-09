@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 export default defineConfig({
   plugins: [
     react(),
@@ -23,11 +24,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
+      "@": path.resolve(__dirname, "client", "src"), // You may want to keep this if the source files are still in 'client/src'
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "client"),
+  root: __dirname,  // Set root to the project root, not 'client'
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
