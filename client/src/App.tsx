@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Heritage from "@/pages/heritage";
-import HeritageEdit from "@/pages/heritage/edit";
 import Hobbies from "@/pages/connections";
 import NavMenu from "@/components/nav-menu";
 
@@ -14,7 +13,6 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/heritage" component={Heritage} />
-      <Route path="/heritage/edit" component={HeritageEdit} />
       <Route path="/hobbies" component={Hobbies} />
       <Route component={NotFound} />
     </Switch>
