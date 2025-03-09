@@ -35,7 +35,7 @@ export default defineConfig({
     strictPort: true,
     allowedHosts: [
       "localhost",
-      "61f62106-63e7-4985-a5ed-fd11dfbf8f54-00-k4rubr2uct58.spock.replit.dev",  // Add Replit URL here
+      "https://nathanhaliday.github.io/Nathans-Heritage/",  // Add Replit URL here
     ],
   },
 });
