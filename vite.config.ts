@@ -9,15 +9,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
+  base: "/Nathans-Heritage/", // Set correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
     themePlugin(),
-    // Only add cartographer plugin if the environment matches
     process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined
       ? require("@replit/vite-plugin-cartographer").cartographer()
       : null,
-  ].filter(Boolean), // filter out null values from the plugin array
+  ].filter(Boolean), // Remove null values from the plugin array
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),
@@ -26,16 +26,16 @@ export default defineConfig({
   },
   root: __dirname,
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: path.resolve(__dirname, "docs"), // Change from "dist" to "docs" for GitHub Pages
     emptyOutDir: true,
   },
   server: {
-    host: "0.0.0.0",  // Allow access from any host
+    host: "0.0.0.0",
     port: 5000,
     strictPort: true,
     allowedHosts: [
       "localhost",
-      "nathanhaliday.github.io",  // Add Replit URL here
+      "nathanhaliday.github.io", // Ensure GitHub Pages host is allowed
     ],
   },
 });
