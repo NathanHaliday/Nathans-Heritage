@@ -17,8 +17,8 @@ const isProduction = process.env.NODE_ENV === "production";
 
 // Set the correct path based on the environment
 const indexHtmlPath = isProduction
-  ? path.resolve(__dirname, "..", "dist", "index.html")  // Production path (dist folder)
-  : path.resolve(__dirname, "..", "docs", "index.html");  // Development path (client folder)
+  ? path.resolve(__dirname, "..", "docs", "index.html")  // Production path (docs folder)
+  : path.resolve(__dirname, "..", "docs", "index.html");  // Development path (docs folder)
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -76,20 +76,20 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "..", "dist"); // Use the dist directory for production
+  const docsPath = path.resolve(__dirname, "..", "docs"); // Updated to 'docs' folder
 
-  if (!fs.existsSync(distPath)) {
+  if (!fs.existsSync(docsPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+      `Could not find the build directory: ${docsPath}, make sure to build the client first`,
     );
   }
 
-  // Serve static files in production from dist folder
-  app.use(express.static(distPath));
+  // Serve static files from the docs folder
+  app.use(express.static(docsPath));
 
   // For all other routes (especially client-side routing), send the index.html
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    res.sendFile(path.resolve(docsPath, "index.html")); // Serve index.html from 'docs'
   });
 }
 
