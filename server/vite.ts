@@ -99,5 +99,9 @@ export function startServer(app: Express) {
     console.log("Server running on port 5000");
   });
 
+  server.on("error", (err) => {
+    console.error("Server Error:", err);
+  });
+
   return server;
 }
