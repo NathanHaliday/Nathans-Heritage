@@ -29,9 +29,9 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: "0.0.0.0",
-    port: 5000,
+    host: "1.1.1.1",
+    port: 3000,
     strictPort: true,
-    allowedHosts: ["localhost", "obscure-halibut-wrrr44vrj7vvf9r6v-5000.app.github.dev", "nathanhaliday.github.io"], // Allow all hosts (GitHub Codespaces friendly)
+    allowedHosts: ["localhost", "nathanhaliday.github.io"], // Allow all hosts (GitHub Codespaces friendly)
   },
 });
