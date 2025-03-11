@@ -18,7 +18,7 @@ const isProduction = process.env.NODE_ENV === "production";
 // Set the correct path based on the environment
 const indexHtmlPath = isProduction
   ? path.resolve(__dirname, "..", "dist", "index.html")  // Production path (dist folder)
-  : path.resolve(__dirname, "..", "client", "index.html");  // Development path (client folder)
+  : path.resolve(__dirname, "..", "docs", "index.html");  // Development path (client folder)
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {

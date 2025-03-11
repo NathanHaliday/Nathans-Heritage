@@ -1,41 +1,37 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path, { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import path from "path";
 import { fileURLToPath } from "url";
+import { dirname } from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+// Fix __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: "/Nathans-Heritage/", // Set correct base path for GitHub Pages
+  base: "/Nathans-Heritage/", // Ensure correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
     themePlugin(),
-    process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined
-      ? require("@replit/vite-plugin-cartographer").cartographer()
-      : null,
-  ].filter(Boolean), // Remove null values from the plugin array
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
+      "@": path.resolve(__dirname, "client/src"), // Adjust based on your structure
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: __dirname,
+  root: path.resolve(__dirname, "docs"), // Ensure index.html is inside docs/
   build: {
-    outDir: path.resolve(__dirname, "docs"), // Change from "dist" to "docs" for GitHub Pages
+    outDir: path.resolve(__dirname, "docs/build"), // Keeps built files inside docs/build
     emptyOutDir: true,
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: true,
-    allowedHosts: [
-      "localhost",
-      "nathanhaliday.github.io", // Ensure GitHub Pages host is allowed
-    ],
+    allowedHosts: ["all"], // Allow all hosts (GitHub Codespaces friendly)
   },
 });
