@@ -23,16 +23,16 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "docs"), // Root is docs/ folder where index.html is located
+  root: path.resolve(__dirname, "client"), // Set the root to the client folder (not docs/)
   build: {
-    outDir: path.resolve(__dirname, "docs"), // Output to docs/ directory
-    emptyOutDir: true, // Clean docs folder before build
-    assetsDir: "assets", // Place assets inside docs/assets
+    outDir: path.resolve(__dirname, "dist"), // Output to dist/ (not docs/)
+    emptyOutDir: true, // Clean dist before build
+    assetsDir: "assets", // Place assets inside dist/assets
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: true,
-    allowedHosts: ["localhost", "nathanhaliday.github.io"], // Allow all hosts (GitHub Codespaces friendly)
+    allowedHosts: ["localhost", "nathanhaliday.github.io"],
   },
 });
