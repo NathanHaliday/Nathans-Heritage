@@ -4,7 +4,6 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
-import viteConfig from "vite.config";
 import { nanoid } from "nanoid";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,8 +34,7 @@ export async function setupVite(app: Express, server: Server) {
   if (!isProduction) {
     // Only create the Vite server if in development mode
     const vite = await createViteServer({
-      ...viteConfig,
-      configFile: false,
+      configFile: false, // Do not use a vite.config file, as it's already handled
       customLogger: {
         ...viteLogger,
         error: (msg, options) => {
@@ -63,7 +61,7 @@ export async function setupVite(app: Express, server: Server) {
         // Modify the template (e.g., versioning)
         template = template.replace(
           `src="/src/main.tsx"`,
-          `src="/src/main.tsx?v=${nanoid()}"`,
+          `src="/src/main.tsx?v=${nanoid()}"`
         );
         const page = await vite.transformIndexHtml(url, template);
         res.status(200).set({ "Content-Type": "text/html" }).end(page);
@@ -80,7 +78,7 @@ export function serveStatic(app: Express) {
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+      `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
 
