@@ -25,8 +25,9 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "docs"), // Ensure index.html is inside docs/
   build: {
-    outDir: path.resolve(__dirname, "docs/build"), // Keeps built files inside docs/build
+    outDir: path.resolve(__dirname, "docs"), // Keeps built files inside docs/build
     emptyOutDir: true,
+    assetsDir: "assets",
   },
   server: {
     host: "0.0.0.0",
