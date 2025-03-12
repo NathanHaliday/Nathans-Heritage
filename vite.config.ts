@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: "/Nathans-Heritage/", // Ensure correct base path for GitHub Pages
+  base: "/Nathans-Heritage/", // Correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -23,11 +23,11 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "docs"), // Ensure index.html is inside docs/
+  root: path.resolve(__dirname, "docs"), // Root is docs/ folder where index.html is located
   build: {
-    outDir: path.resolve(__dirname, "docs"), // Keeps built files inside docs/build
-    emptyOutDir: true,
-    assetsDir: "assets",
+    outDir: path.resolve(__dirname, "dist"), // Output to dist/ directory
+    emptyOutDir: true, // Clean dist folder before build
+    assetsDir: "assets", // Place assets inside dist/assets
   },
   server: {
     host: "0.0.0.0",

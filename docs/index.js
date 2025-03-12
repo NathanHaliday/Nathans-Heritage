@@ -77,40 +77,53 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path, { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import path from "path";
 import { fileURLToPath } from "url";
+import { dirname } from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
   base: "/Nathans-Heritage/",
+  // Correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    themePlugin(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
-      await import("@replit/vite-plugin-cartographer").then(
-        (m) => m.cartographer()
-      )
-    ] : []
+    themePlugin()
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
+      "@": path.resolve(__dirname, "client/src"),
+      // Adjust based on your structure
       "@shared": path.resolve(__dirname, "shared")
     }
   },
-  root: path.resolve(__dirname),
+  root: path.resolve(__dirname, "docs"),
+  // Root is docs/ folder where index.html is located
   build: {
     outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true
+    // Output to dist/ directory
+    emptyOutDir: true,
+    // Clean dist folder before build
+    assetsDir: "assets"
+    // Place assets inside dist/assets
+  },
+  server: {
+    host: "0.0.0.0",
+    port: 5e3,
+    strictPort: true,
+    allowedHosts: ["localhost", "nathanhaliday.github.io"]
+    // Allow all hosts (GitHub Codespaces friendly)
   }
 });
 
 // server/vite.ts
+import { nanoid } from "nanoid";
 var __filename2 = fileURLToPath2(import.meta.url);
 var __dirname2 = dirname2(__filename2);
 var viteLogger = createLogger();
+var isProduction = process.env.NODE_ENV === "production";
+var indexHtmlPath = isProduction ? path2.resolve(__dirname2, "..", "docs", "index.html") : path2.resolve(__dirname2, "..", "docs", "index.html");
 function log(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -121,58 +134,53 @@ function log(message, source = "express") {
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 async function setupVite(app2, server) {
-  const serverOptions = {
-    middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true
-  };
-  const vite = await createViteServer({
-    ...vite_config_default,
-    configFile: false,
-    customLogger: {
-      ...viteLogger,
-      error: (msg, options) => {
-        viteLogger.error(msg, options);
-        process.exit(1);
+  if (!isProduction) {
+    const vite = await createViteServer({
+      ...vite_config_default,
+      configFile: false,
+      customLogger: {
+        ...viteLogger,
+        error: (msg, options) => {
+          viteLogger.error(msg, options);
+          process.exit(1);
+        }
+      },
+      server: {
+        middlewareMode: true,
+        // Important for using Vite in middleware mode with Express
+        hmr: { clientPort: 5e3 }
+        // Ensure that HMR works on port 5000
+      },
+      appType: "custom"
+    });
+    app2.use(vite.middlewares);
+    app2.use("*", async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        let template = await fs.promises.readFile(indexHtmlPath, "utf-8");
+        template = template.replace(
+          `src="/src/main.tsx"`,
+          `src="/src/main.tsx?v=${nanoid()}"`
+        );
+        const page = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      } catch (e) {
+        vite.ssrFixStacktrace(e);
+        next(e);
       }
-    },
-    server: serverOptions,
-    appType: "custom"
-  });
-  app2.use(vite.middlewares);
-  app2.use("*", async (req, res, next) => {
-    const url = req.originalUrl;
-    try {
-      const clientTemplate = path2.resolve(
-        __dirname2,
-        "..",
-        "docs",
-        "index.html"
-      );
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
-      template = template.replace(
-        `src="/src/main.tsx"`,
-        `/Nathans-Heritage/assets/index-co_DqPOj.js`
-        // Adjust to the correct base path
-      );
-      const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
-    } catch (e) {
-      vite.ssrFixStacktrace(e);
-      next(e);
-    }
-  });
+    });
+  }
 }
 function serveStatic(app2) {
-  const distPath = path2.resolve(__dirname2, "dist");
-  if (!fs.existsSync(distPath)) {
+  const docsPath = path2.resolve(__dirname2, "..", "docs");
+  if (!fs.existsSync(docsPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`
+      `Could not find the build directory: ${docsPath}, make sure to build the client first`
     );
   }
-  app2.use(express.static(distPath));
+  app2.use(express.static(docsPath));
   app2.use("*", (_req, res) => {
-    res.sendFile(path2.resolve(distPath, "index.html"));
+    res.sendFile(path2.resolve(docsPath, "index.html"));
   });
 }
 
@@ -217,8 +225,8 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const PORT = 5e3;
-  server.listen(PORT, "0.0.0.0", () => {
+  const PORT = 3e3;
+  server.listen(PORT, "1.1.1.1", () => {
     log(`serving on port ${PORT}`);
   });
 })();
