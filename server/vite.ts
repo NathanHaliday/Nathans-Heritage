@@ -17,7 +17,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 // Set the correct path based on the environment
 const indexHtmlPath = isProduction
-  ? path.resolve(__dirname, "..", "docs", "index.html")  // Production path (docs folder)
+  ? path.resolve(__dirname, "..", "dist", "index.html")  // Production path (dist folder)
   : path.resolve(__dirname, "..", "docs", "index.html");  // Development path (docs folder)
 
 export function log(message: string, source = "express") {
@@ -63,7 +63,7 @@ export async function setupVite(app: Express, server: Server) {
         // Modify the template (e.g., versioning)
         template = template.replace(
           `src="/src/main.tsx"`,
-          `src="/src/main.tsx?v=${nanoid()}"`,
+          `src="/src/main.tsx?v=${nanoid()}"`
         );
         const page = await vite.transformIndexHtml(url, template);
         res.status(200).set({ "Content-Type": "text/html" }).end(page);
@@ -80,7 +80,7 @@ export function serveStatic(app: Express) {
 
   if (!fs.existsSync(docsPath)) {
     throw new Error(
-      `Could not find the build directory: ${docsPath}, make sure to build the client first`,
+      `Could not find the build directory: ${docsPath}, make sure to build the client first`
     );
   }
 

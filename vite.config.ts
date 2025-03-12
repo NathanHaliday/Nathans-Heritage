@@ -25,9 +25,11 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "docs"), // Root is docs/ folder where index.html is located
   build: {
-    outDir: path.resolve(__dirname, "dist"), // Change the output directory to `dist` (not `docs`)
+    outDir: path.resolve(__dirname, "dist"), // Build output directory set to 'dist'
     emptyOutDir: true, // Clean dist folder before build
     assetsDir: "assets", // Place assets inside dist/assets
+    manifest: true, // Enable manifest for proper asset referencing
+    assetsInlineLimit: 0, // Prevent inlining assets
     rollupOptions: {
       external: ["fsevents"], // Exclude fsevents from the build
     },
