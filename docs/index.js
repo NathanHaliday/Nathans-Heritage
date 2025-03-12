@@ -76,7 +76,6 @@ import { createServer as createViteServer, createLogger } from "vite";
 // vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -85,35 +84,29 @@ var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
   base: "/Nathans-Heritage/",
-  // Correct base path for GitHub Pages
   plugins: [
     react(),
-    runtimeErrorOverlay(),
-    themePlugin()
+    runtimeErrorOverlay()
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client/src"),
-      // Adjust based on your structure
       "@shared": path.resolve(__dirname, "shared")
     }
   },
-  root: path.resolve(__dirname, "docs"),
-  // Root is docs/ folder where index.html is located
+  root: path.resolve(__dirname, "client"),
+  // Set root to client/
   build: {
     outDir: path.resolve(__dirname, "dist"),
-    // Output to dist/ directory
+    // Build output to dist/
     emptyOutDir: true,
-    // Clean dist folder before build
     assetsDir: "assets"
-    // Place assets inside dist/assets
   },
   server: {
     host: "0.0.0.0",
     port: 5e3,
     strictPort: true,
     allowedHosts: ["localhost", "nathanhaliday.github.io"]
-    // Allow all hosts (GitHub Codespaces friendly)
   }
 });
 
@@ -225,8 +218,8 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const PORT = 3e3;
-  server.listen(PORT, "1.1.1.1", () => {
+  const PORT = 5e3;
+  server.listen(PORT, () => {
     log(`serving on port ${PORT}`);
   });
 })();
