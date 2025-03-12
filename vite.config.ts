@@ -25,9 +25,9 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "docs"), // Root is docs/ folder where index.html is located
   build: {
-    outDir: path.resolve(__dirname, "dist"), // Output to dist/ directory
-    emptyOutDir: true, // Clean dist folder before build
-    assetsDir: "assets", // Place assets inside dist/assets
+    outDir: path.resolve(__dirname, "docs"), // Output to docs/ directory
+    emptyOutDir: true, // Clean docs folder before build
+    assetsDir: "assets", // Place assets inside docs/assets
   },
   server: {
     host: "0.0.0.0",
