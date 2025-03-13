@@ -20,7 +20,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "docs"), // Use 'docs' for GitHub Pages
     emptyOutDir: true, // Ensures docs/ is cleared before every build
-    assetsDir: "assets",
+    assetsDir: "assets", // Outputs assets in the "assets" folder
     rollupOptions: {
       input: path.resolve(__dirname, "client/index.html"), // Ensure correct entry
       output: {
