@@ -11,31 +11,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: "/Nathans-Heritage/", // Make sure this base path matches your deployment structure
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    themePlugin(),
-  ],
+  base: "/Nathans-Heritage/", // Ensure this matches your actual deployment URL
+  plugins: [react(), runtimeErrorOverlay(), themePlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client/src"),
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "docs"), // Root folder for Vite
+  root: path.resolve(__dirname, "docs"), // Keep source files in "docs"
   build: {
-    outDir: path.resolve(__dirname, "docs"), // Ensure output goes to the correct directory
+    outDir: path.resolve(__dirname, "dist"), // Output files go here (avoid overwriting "docs")
     emptyOutDir: true,
-    assetsDir: "assets", // Ensure assets are put inside the 'assets' directory
+    assetsDir: "assets",
     rollupOptions: {
-      external: ["fsevents"], // Exclude external dependencies from the build
+      external: ["/Nathans-Heritage/assets/index-COVJcvtA.js", "fsevents"],
     },
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: true,
-    allowedHosts: ["localhost", "nathanhaliday.github.io"], // Include allowed hosts
+    allowedHosts: ["localhost", "nathanhaliday.github.io"],
   },
 });
