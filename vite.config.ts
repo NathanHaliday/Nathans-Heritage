@@ -1,37 +1,43 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-// Fix __dirname for ES modules
+// Determine if we are in development mode
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
+const isProduction = process.env.NODE_ENV === "production";
 
 export default defineConfig({
-  base: "/Nathans-Heritage/", // Ensure this matches your actual deployment URL
-  plugins: [react(), runtimeErrorOverlay(), themePlugin()],
+  base: isProduction ? "/Nathans-Heritage/" : "/", // Use "/" for dev, "/Nathans-Heritage/" for GitHub Pages
+  plugins: [react(), themePlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client/src"),
-      "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "docs"), // Keep source files in "docs"
   build: {
-    outDir: path.resolve(__dirname, "dist"), // Output files go here (avoid overwriting "docs")
-    emptyOutDir: true,
+    outDir: path.resolve(__dirname, "docs"), // Use 'docs' for GitHub Pages
+    emptyOutDir: true, // Ensures docs/ is cleared before every build
     assetsDir: "assets",
     rollupOptions: {
-      external: ["/Nathans-Heritage/assets/index-COVJcvtA.js", "fsevents"],
+      input: path.resolve(__dirname, "client/index.html"), // Ensure correct entry
+      output: {
+        assetFileNames: "assets/[name]-[hash][extname]",
+        entryFileNames: "assets/[name]-[hash].js",
+        chunkFileNames: "assets/[name]-[hash].js",
+      },
+      external: isProduction ? ["fsevents"] : [], // Exclude external dependencies
     },
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: true,
-    allowedHosts: ["localhost", "nathanhaliday.github.io"],
+    open: true,
+    watch: {
+      usePolling: true, // Useful for some development environments
+    },
   },
 });
