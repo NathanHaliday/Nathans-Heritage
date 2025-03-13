@@ -60,12 +60,31 @@ export async function setupVite(app: Express, server: Server) {
         // Use the correct index.html path based on the environment
         let template = await fs.promises.readFile(indexHtmlPath, "utf-8");
 
-        // Modify the template (e.g., versioning)
+        // Modify the template (e.g., versioning main.tsx)
         template = template.replace(
           `src="/src/main.tsx"`,
           `src="/src/main.tsx?v=${nanoid()}"`
         );
+
+        // Add versioning to all asset files (CSS/JS)
+        template = template.replace(
+          /href="\/assets\/(.+?\.css)"/g,
+          (match, asset) => {
+            return `href="/assets/${asset}?v=${nanoid()}"`; // Add versioning to CSS files
+          }
+        );
+
+        template = template.replace(
+          /src="\/assets\/(.+?\.js)"/g,
+          (match, asset) => {
+            return `src="/assets/${asset}?v=${nanoid()}"`; // Add versioning to JS files
+          }
+        );
+
+        // Transform the HTML with Vite's transformation
         const page = await vite.transformIndexHtml(url, template);
+
+        // Send the transformed HTML as a response
         res.status(200).set({ "Content-Type": "text/html" }).end(page);
       } catch (e) {
         vite.ssrFixStacktrace(e as Error);

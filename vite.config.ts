@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: "/Nathans-Heritage/", // Correct base path for GitHub Pages
+  base: "/Nathans-Heritage/", // Make sure this base path matches your deployment structure
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -19,25 +19,23 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"), // Adjust based on your structure
+      "@": path.resolve(__dirname, "client/src"),
       "@shared": path.resolve(__dirname, "shared"),
     },
   },
-  root: path.resolve(__dirname, "docs"), // Root is docs/ folder where index.html is located
+  root: path.resolve(__dirname, "docs"), // Root folder for Vite
   build: {
-    outDir: path.resolve(__dirname, "dist"), // Build output directory set to 'dist'
-    emptyOutDir: true, // Clean dist folder before build
-    assetsDir: "assets", // Place assets inside dist/assets
-    manifest: true, // Enable manifest for proper asset referencing
-    assetsInlineLimit: 0, // Prevent inlining assets
+    outDir: path.resolve(__dirname, "docs"), // Ensure output goes to the correct directory
+    emptyOutDir: true,
+    assetsDir: "assets", // Ensure assets are put inside the 'assets' directory
     rollupOptions: {
-      external: ["fsevents"], // Exclude fsevents from the build
+      external: ["fsevents"], // Exclude external dependencies from the build
     },
   },
   server: {
     host: "0.0.0.0",
     port: 5000,
     strictPort: true,
-    allowedHosts: ["localhost", "nathanhaliday.github.io"], // Allow all hosts (GitHub Codespaces friendly)
+    allowedHosts: ["localhost", "nathanhaliday.github.io"], // Include allowed hosts
   },
 });
