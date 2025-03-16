@@ -76,22 +76,17 @@ import { createServer as createViteServer, createLogger } from "vite";
 // vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path, { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { fileURLToPath } from "url";
+import { copyFileSync } from "fs";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
-var vite_config_default = defineConfig(async () => {
-  const cartographerPlugin = process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? (await import("@replit/vite-plugin-cartographer")).cartographer() : null;
+var vite_config_default = defineConfig(() => {
   return {
     base: "/Nathans-Heritage/",
-    // Correct path for GitHub Pages
+    // Ensure GitHub Pages serves assets correctly
     plugins: [
-      react(),
-      runtimeErrorOverlay(),
-      themePlugin(),
-      ...cartographerPlugin ? [cartographerPlugin] : []
+      react()
     ],
     resolve: {
       alias: {
@@ -99,10 +94,23 @@ var vite_config_default = defineConfig(async () => {
         "@shared": path.resolve(__dirname, "shared")
       }
     },
+    define: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+    },
     root: path.resolve(__dirname, "client"),
     build: {
       outDir: path.resolve(__dirname, "dist"),
-      emptyOutDir: true
+      emptyOutDir: true,
+      rollupOptions: {
+        plugins: [
+          {
+            name: "copy-redirects",
+            closeBundle: () => {
+              copyFileSync("_redirects", path.resolve(__dirname, "dist/_redirects"));
+            }
+          }
+        ]
+      }
     }
   };
 });
