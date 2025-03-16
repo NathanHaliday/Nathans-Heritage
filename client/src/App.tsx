@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Router as WouterRouter, Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,13 +8,11 @@ import Heritage from "@/pages/heritage";
 import Hobbies from "@/pages/connections";
 import NavMenu from "@/components/nav-menu";
 
-import { Router as WouterRouter } from "wouter";
-
 function Router() {
   return (
-   <WouterRouter base="/Nathans-Heritage">
+    <WouterRouter base="/Nathans-Heritage"> {/* Wrap the Switch with the WouterRouter base */}
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" component={Home} /> {/* Home route */}
         <Route path="/heritage" component={Heritage} />
         <Route path="/hobbies" component={Hobbies} />
         <Route component={NotFound} />
@@ -29,7 +27,7 @@ function App() {
       <div className="min-h-screen bg-background">
         <NavMenu />
         <main className="container mx-auto px-4 py-8">
-          <Router />
+          <Router /> {/* Place the Router here */}
         </main>
       </div>
       <Toaster />
