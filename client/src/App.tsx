@@ -11,7 +11,7 @@ import NavMenu from "@/components/nav-menu";
 function Router() {
   return (
     <Switch>
-      <Route path="/home" component={Home} />
+      <Route path="/Nathans-Heritage" component={Home} />
       <Route path="/heritage" component={Heritage} />
       <Route path="/hobbies" component={Hobbies} />
       <Route component={NotFound} />
