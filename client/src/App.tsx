@@ -8,14 +8,18 @@ import Heritage from "@/pages/heritage";
 import Hobbies from "@/pages/connections";
 import NavMenu from "@/components/nav-menu";
 
+import { Router as WouterRouter } from "wouter";
+
 function Router() {
   return (
-    <Switch>
-      <Route path="/Nathans-Heritage" component={Home} />
-      <Route path="/heritage" component={Heritage} />
-      <Route path="/hobbies" component={Hobbies} />
-      <Route component={NotFound} />
-    </Switch>
+   <WouterRouter base="/Nathans-Heritage">
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/heritage" component={Heritage} />
+        <Route path="/hobbies" component={Hobbies} />
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 
