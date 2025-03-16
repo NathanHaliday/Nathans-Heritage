@@ -83,6 +83,8 @@ import { fileURLToPath } from "url";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
+  base: "/Nathans-Heritage/",
+  // Set the correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),

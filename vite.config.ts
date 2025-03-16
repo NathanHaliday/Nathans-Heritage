@@ -7,7 +7,9 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 export default defineConfig({
+  base: "/Nathans-Heritage/", // Set the correct base path for GitHub Pages
   plugins: [
     react(),
     runtimeErrorOverlay(),
