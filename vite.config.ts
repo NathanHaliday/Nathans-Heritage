@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 
 export default defineConfig(() => {
   return {
-    base: "/Nathans-Heritage", // Ensure GitHub Pages serves assets correctly
+    base: "/", // Ensure GitHub Pages serves assets correctly
     plugins: [
       react(),
     ],
