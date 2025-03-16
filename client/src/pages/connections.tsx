@@ -7,7 +7,7 @@ export default function Hobbies() {
     {
       title: "Softball",
       image: "https://www.okc.gov/home/showpublishedimage/9060/636461886621000000",
-      wikipediaLink: "https://www.sporty.co.nz/pokenorazorbacks/home-plate"
+      Link: "https://www.sporty.co.nz/pokenorazorbacks/home-plate"
     },
     {
       title: "Bass Guitar",
