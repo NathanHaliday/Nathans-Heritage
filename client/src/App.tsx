@@ -14,9 +14,9 @@ function Router() {
   return (
    <WouterRouter base="/Nathans-Heritage">
       <Switch>
-        <Route path="/Nathans-Heritage" component={Home} />
-        <Route path="/Nathans-Heritage/heritage" component={Heritage} />
-        <Route path="/Nathans-Heritage/hobbies" component={Hobbies} />
+        <Route path="/" component={Home} />
+        <Route path="/heritage" component={Heritage} />
+        <Route path="/hobbies" component={Hobbies} />
         <Route component={NotFound} />
       </Switch>
     </WouterRouter>
