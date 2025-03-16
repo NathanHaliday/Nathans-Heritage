@@ -12,32 +12,32 @@ export default function Hobbies() {
     {
       title: "Bass Guitar",
       image: "https://mitchellguitars.com/wp-content/uploads/2018/11/Mitchell-FB-Series-Bass-Main-Mobile.jpg",
-      wikipediaLink: "https://www.studybass.com/"
+      Link: "https://www.studybass.com/"
     },
     {
       title: "Yu-Gi-Oh!",
       image: "https://i.ytimg.com/vi/7WJKIiFSj4k/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGHIgSyhFMA8=&rs=AOn4CLDdbjV5XCNjHMaeSjzzAF1rb_nUfw",
-      wikipediaLink: "https://en.wikipedia.org/wiki/Yu-Gi-Oh!"
+      Link: "https://en.wikipedia.org/wiki/Yu-Gi-Oh!"
     },
     {
       title: "Speedcubing",
       image: "https://images.squarespace-cdn.com/content/v1/582cd3322994caad8bdc6c11/f45d4249-8c93-47f0-a883-1cd8bf2eacc9/Seedcubing-2024-LaurynMackenzie.jpg",
-      wikipediaLink: "https://www.worldcubeassociation.org/"
+      Link: "https://www.worldcubeassociation.org/"
     },
     {
       title: "Yo-yo",
       image: "https://i.ytimg.com/vi/EhNWtFCJnkM/maxresdefault.jpg",
-      wikipediaLink: "https://yoyotricks.com/"
+      Link: "https://yoyotricks.com/"
     },
     {
       title: "Gaming",
       image: "https://www.pcworld.com/wp-content/uploads/2024/04/pcw08_Asus-Gaming-PC.jpg?quality=50&strip=all",
-      wikipediaLink: "https://en.wikipedia.org/wiki/Video_game"
+      Link: "https://en.wikipedia.org/wiki/Video_game"
     },
     {
       title: "Mathematics",
       image: "https://i.redd.it/7idzzssakws51.jpg",
-      wikipediaLink: "https://en.wikipedia.org/wiki/Mathematics"
+      Link: "https://en.wikipedia.org/wiki/Mathematics"
     },
     {
       title: "Programming",

@@ -5,13 +5,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
 export default function Heritage() {
-  const { data: heritage, isLoading, error } = useQuery<Heritage>({
+  const { data: heritage, isLoading } = useQuery<Heritage>({
     queryKey: ["/api/heritage"],
-    queryFn: async () => {
-      const response = await fetch("/api/heritage");
-      if (!response.ok) throw new Error("Failed to fetch heritage data");
-      return response.json();
-    },
   });
 
   if (isLoading) {
@@ -23,53 +18,48 @@ export default function Heritage() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="text-center text-red-500">
-        <p>Error loading heritage data: {error.message}</p>
-      </div>
-    );
-  }
-
   if (!heritage) {
-    return (
-      <div className="text-center text-gray-500">
-        <p>No heritage data available.</p>
-      </div>
-    );
+    return null;
   }
 
-  // Define your sections based on the heritage data
   const sections = [
     {
       title: "Personal Identity",
-      content: heritage.name, // Uses actual API data
+      content: `My name is Nathan Haliday. The Haliday name originated in the Scottish and English borders, particularly Annandale, Scotland. Some sources suggest the name comes from "Holy Day," either as a location-based surname or as a war cry used by the family.`,
       className: "border-l-4 border-primary",
       image: "https://i.imgur.com/brL09zc.jpeg"
     },
     {
       title: "Ancestral Heritage",
-      content: heritage.ancestors,
+      content: `My ancestry blends Nordic and British roots, tracing back to Hull, UK, a key Viking settlement. The Vikings shaped the region’s culture, names, and genetics, making Viking heritage in my lineage likely, possibly even linking to Ragnar Lodbrok.`,
       className: "border-l-4 border-yellow-500",
       image: "https://scandinaviafacts.com/wp-content/uploads/2022/03/viking-country.jpg"
     },
     {
       title: "Significant Places",
-      content: `Land: ${heritage.land}\nRiver: ${heritage.river}`,
+      content: [
+        `I am from New Zealand, a country celebrated for its rich Māori culture, stunning landscapes, and The Lord of the Rings movies. The Waikato River, New Zealand's longest river, flows through my homeland, holding great spiritual and cultural importance for the local Māori tribes. I currently live in Pōkeno, a town with a rich history.`,
+      ],
       className: "border-l-4 border-green-500",
       image: "https://thumbnailer.digitalnz.org/?src=https%3A%2F%2Fnzhistory.govt.nz%2Ffiles%2Fstyles%2Ffullsize%2Fpublic%2Fimages%2Fpokeno-nz-wars-memorial.jpg%3Fitok%3D6WosfRqo"
     },
     {
       title: "Community",
-      content: heritage.people,
+      content: [
+        `• I'm proud to be part of the Pōkeno Razorbacks Softball Club, a community-focused organization aiming to build a lasting softball presence in Pōkeno, and was established in 2022.`,
+
+`• I'm also a member of Tuakau College's EPro8 Club, which engages students in science and engineering challenges to develop robotics skills.`,
+
+`• Additionally, I've joined the Tuakau College Rotary Club, an international youth organization that encourages leadership and community service.`,
+      ],
       className: "border-l-4 border-purple-500",
       image: "https://prodcdn.sporty.co.nz/cms/23153/1423079/1423080/d7e744ee-e3ee-4b86-b864-f0039f1c9cab_wo.png?t=638243516975170000"
     },
   ];
 
   return (
-    <div className="max-w-3xl mx-auto bg-gray-100 p-6 rounded-lg shadow-md">
-      <motion.h1
+    <div className="max-w-3xl mx-auto">
+      <motion.h1 
         className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
