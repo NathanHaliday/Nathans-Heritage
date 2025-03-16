@@ -5,7 +5,7 @@ export default function NavMenu() {
   const [location] = useLocation();
 
   const navItems = [
-    { href: "/Nathans-Heritage", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "/heritage", label: "Heritage" },
     { href: "/hobbies", label: "Hobbies" },
   ];
