@@ -3,13 +3,22 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const viteLogger = createLogger();
+
+// Check the environment to know if it's production or development
+const isProduction = process.env.NODE_ENV === "production";
+
+// Set the correct path based on the environment
+const indexHtmlPath = isProduction
+  ? path.resolve(__dirname, "..", "docs", "index.html")  // Production path (docs folder)
+  : path.resolve(__dirname, "..", "client", "index.html");  // Development path (client folder)
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -23,12 +32,6 @@ export function log(message: string, source = "express") {
 }
 
 export async function setupVite(app: Express, server: Server) {
-  const serverOptions = {
-    middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true,
-  };
-
   const vite = await createViteServer({
     ...viteConfig,
     configFile: false,
@@ -39,24 +42,23 @@ export async function setupVite(app: Express, server: Server) {
         process.exit(1);
       },
     },
-    server: serverOptions,
+    server: {
+      middlewareMode: true, // Important for using Vite in middleware mode with Express
+      hmr: { clientPort: 5000 }, // Ensure that HMR works on port 5000
+    },
     appType: "custom",
   });
 
   app.use(vite.middlewares);
+
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
-      const clientTemplate = path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "index.html",
-      );
+      // Use the correct index.html path based on the environment
+      let template = await fs.promises.readFile(indexHtmlPath, "utf-8");
 
-      // always reload the index.html file from disk incase it changes
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      // Modify the template (e.g., versioning)
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`,
@@ -71,7 +73,7 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "public");
+  const distPath = path.resolve(__dirname, "..");
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
@@ -81,8 +83,16 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
+}
+
+// Create an Express server and listen on port 5000
+export function startServer(app: Express) {
+  const server = app.listen(5000, () => {
+    console.log("Server running on port 5000");
+  });
+
+  return server;
 }
