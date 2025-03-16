@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change this if your branch is different
+      - main  # Make sure this matches your working branch
 
 jobs:
   build:
@@ -21,5 +21,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist  # This tells GitHub to deploy the 'dist' folder
-          token: ${{ secrets.GITHUB_TOKEN }}  # Prevents permission errors
+          folder: dist  # Make sure this points to the correct build folder
+          clean: true  # Ensures old files are removed before deploying
