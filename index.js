@@ -83,7 +83,7 @@ var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig(() => {
   return {
-    base: "/Nathans-Heritage/home/",
+    base: "/Nathans-Heritage",
     // Ensure GitHub Pages serves assets correctly
     plugins: [
       react()
