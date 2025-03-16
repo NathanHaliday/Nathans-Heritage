@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { type Heritage } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
 export default function Heritage() {
-  const { data: heritage, isLoading } = useQuery<Heritage>({
+  const { data: heritage, isLoading } = useQuery({
     queryKey: ["/api/heritage"],
+    queryFn: async () => {
+      const response = await fetch("/api/heritage");
+      if (!response.ok) throw new Error("Failed to fetch heritage data");
+      return response.json();
+    },
   });
 
   if (isLoading) {

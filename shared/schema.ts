@@ -14,7 +14,6 @@ export const heritage = pgTable("heritage", {
 
 export const insertHeritageSchema = createInsertSchema(heritage).omit({ id: true });
 
-// Pre-populate with Nathan's information
 export const defaultHeritage: z.infer<typeof insertHeritageSchema> = {
   name: "Nathan Haliday",
   land: "New Zealand",
