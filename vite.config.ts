@@ -1,27 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path, { dirname } from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { fileURLToPath } from "url";
+import { copyFileSync } from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig(async () => {
-  // Fix: Import plugins inside the async function
-  const cartographerPlugin =
-    process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined
-      ? (await import("@replit/vite-plugin-cartographer")).cartographer()
-      : null;
-
+export default defineConfig(() => {
   return {
-    base: "/Nathans-Heritage/", // Correct path for GitHub Pages
+    base: "/Nathans-Heritage/", // Ensure GitHub Pages serves assets correctly
     plugins: [
       react(),
-      runtimeErrorOverlay(),
-      themePlugin(),
-      ...(cartographerPlugin ? [cartographerPlugin] : []),
     ],
     resolve: {
       alias: {
@@ -29,10 +19,23 @@ export default defineConfig(async () => {
         "@shared": path.resolve(__dirname, "shared"),
       },
     },
+    define: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
+    },
     root: path.resolve(__dirname, "client"),
     build: {
       outDir: path.resolve(__dirname, "dist"),
       emptyOutDir: true,
+      rollupOptions: {
+        plugins: [
+          {
+            name: "copy-redirects",
+            closeBundle: () => {
+              copyFileSync("_redirects", path.resolve(__dirname, "dist/_redirects"));
+            },
+          },
+        ],
+      },
     },
   };
 });
