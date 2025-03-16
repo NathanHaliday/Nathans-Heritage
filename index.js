@@ -82,30 +82,29 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { fileURLToPath } from "url";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
-var vite_config_default = defineConfig({
-  base: "/Nathans-Heritage/",
-  // Set the correct base path for GitHub Pages
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    themePlugin(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
-      await import("@replit/vite-plugin-cartographer").then(
-        (m) => m.cartographer()
-      )
-    ] : []
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "client", "src"),
-      "@shared": path.resolve(__dirname, "shared")
+var vite_config_default = defineConfig(async () => {
+  const cartographerPlugin = process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? (await import("@replit/vite-plugin-cartographer")).cartographer() : null;
+  return {
+    base: "/Nathans-Heritage/",
+    // Correct path for GitHub Pages
+    plugins: [
+      react(),
+      runtimeErrorOverlay(),
+      themePlugin(),
+      ...cartographerPlugin ? [cartographerPlugin] : []
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "client", "src"),
+        "@shared": path.resolve(__dirname, "shared")
+      }
+    },
+    root: path.resolve(__dirname, "client"),
+    build: {
+      outDir: path.resolve(__dirname, "dist"),
+      emptyOutDir: true
     }
-  },
-  root: path.resolve(__dirname, "client"),
-  build: {
-    outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true
-  }
+  };
 });
 
 // server/vite.ts
