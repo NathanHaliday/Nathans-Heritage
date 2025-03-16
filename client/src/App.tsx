@@ -10,9 +10,9 @@ import NavMenu from "@/components/nav-menu";
 
 function Router() {
   return (
-    <WouterRouter base="/Nathans-Heritage"> {/* Wrap the Switch with the WouterRouter base */}
+    <WouterRouter base="/Nathans-Heritage">
       <Switch>
-        <Route path="/" component={Home} /> {/* Home route */}
+        <Route path="/" component={Home} />
         <Route path="/heritage" component={Heritage} />
         <Route path="/hobbies" component={Hobbies} />
         <Route component={NotFound} />
@@ -27,7 +27,7 @@ function App() {
       <div className="min-h-screen bg-background">
         <NavMenu />
         <main className="container mx-auto px-4 py-8">
-          <Router /> {/* Place the Router here */}
+          <Router />
         </main>
       </div>
       <Toaster />
