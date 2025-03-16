@@ -22,3 +22,4 @@ jobs:
         with:
           branch: gh-pages
           folder: dist  # This tells GitHub to deploy the 'dist' folder
+          token: ${{ secrets.GITHUB_TOKEN }}  # Prevents permission errors
